@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: db
+    ports:
+      - 5456:5456
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=stdinfo
+  app:
+    image: atharvkhamkar/std:v1
+    depends_on:
+      - db
+    ports:
+      - "1414:1414"
+    links:
+      - db:postgres
+  
